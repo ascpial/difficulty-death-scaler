@@ -43,34 +43,28 @@ public class PlayerDifficultyManager extends DifficultyManager {
                 updater.getModifier(LuckModifier.class).update(0.1);
                 updater.getModifier(BlockBreakSpeedModifier.class).update(0.1);
             }),
-            new StepPair(2, (server, gamerules, updater) -> {
+            new StepPair(1, (server, gamerules, updater) -> {
                 updater.getModifier(LuckModifier.class).update(0);
-            }),
-            new StepPair(3, (server, gamerules, updater) -> {
                 updater.getModifier(HealthModifier.class).update(-2);
             }),
-            new StepPair(4, (server, gamerules, updater) -> {
+            new StepPair(3, (server, gamerules, updater) -> {
                 updater.getModifier(BlockBreakSpeedModifier.class).update(0);
-            }),
-            new StepPair(5, (server, gamerules, updater) -> {
                 updater.getModifier(HealthModifier.class).update(-4);
             }),
-            new StepPair(7, (server, gamerules, updater) -> {
+            new StepPair(5, (server, gamerules, updater) -> {
                 updater.getModifier(HealthModifier.class).update(-6);
             }),
-            new StepPair(8, (server, gamerules, updater) -> {
+            new StepPair(6, (server, gamerules, updater) -> {
                 updater.getModifier(LuckModifier.class).update(-0.1);
             }),
-            new StepPair(10, (server, gamerules, updater) -> {
+            new StepPair(7, (server, gamerules, updater) -> {
                 updater.getModifier(HealthModifier.class).update(-8);
             }),
-            new StepPair(12, (server, gamerules, updater) -> {
+            new StepPair(8, (server, gamerules, updater) -> {
                 updater.getModifier(BlockBreakSpeedModifier.class).update(-0.1);
-            }),
-            new StepPair(13, (server, gamerules, updater) -> {
                 updater.getModifier(LuckModifier.class).update(-0.2);
             }),
-            new StepPair(15, (server, gamerules, updater) -> {
+            new StepPair(10, (server, gamerules, updater) -> {
                 updater.getModifier(HealthModifier.class).update(-10);
             }),
     };
