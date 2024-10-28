@@ -13,6 +13,7 @@ import world.anhgelus.architectsland.difficultydeathscaler.difficulty.Difficulty
 import world.anhgelus.architectsland.difficultydeathscaler.difficulty.StateSaver;
 import world.anhgelus.architectsland.difficultydeathscaler.difficulty.modifier.BlockBreakSpeedModifier;
 import world.anhgelus.architectsland.difficultydeathscaler.difficulty.modifier.LuckModifier;
+import world.anhgelus.architectsland.difficultydeathscaler.difficulty.modifier.Modifier;
 import world.anhgelus.architectsland.difficultydeathscaler.difficulty.modifier.PlayerHealthModifier;
 
 import java.util.*;
