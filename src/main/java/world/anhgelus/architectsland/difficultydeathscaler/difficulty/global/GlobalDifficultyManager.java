@@ -56,72 +56,77 @@ public class GlobalDifficultyManager extends DifficultyManager {
                 updater.getModifier(FallDamageMultiplierModifier.class).update(0);
                 updater.updateDifficulty(1);
             }),
-            new StepPair(3, (server, gamerules, updater) -> {
-                gamerules.get(GameRules.BLOCK_EXPLOSION_DROP_DECAY).set(true, server);
-            }),
-            new StepPair(5, (server, gamerules, updater) -> {
+            new StepPair(1, (server, gamerules, updater) -> updater.updateDifficulty(2)),
+            new StepPair(2, (server, gamerules, updater) -> {
                 gamerules.get(GameRules.PLAYERS_SLEEPING_PERCENTAGE).set(70, server);
             }),
-            new StepPair(7, (server, gamerules, updater) -> {
+            new StepPair(3, (server, gamerules, updater) -> updater.updateDifficulty(3)),
+            new StepPair(5, (server, gamerules, updater) -> {
+                gamerules.get(GameRules.DO_INSOMNIA).set(true, server);
+                gamerules.get(GameRules.BLOCK_EXPLOSION_DROP_DECAY).set(true, server);
                 gamerules.get(GameRules.MOB_EXPLOSION_DROP_DECAY).set(true, server);
             }),
-            new StepPair(10, (server, gamerules, updater) -> updater.updateDifficulty(2)),
-            new StepPair(12, (server, gamerules, updater) -> {
+            new StepPair(7, (server, gamerules, updater) -> {
                 updater.getModifier(FollowRangeModifier.class).update(0.25);
             }),
-            new StepPair(13, (server, gamerules, updater) -> {
-                gamerules.get(GameRules.DO_INSOMNIA).set(true, server);
-            }),
-            new StepPair(15, (server, gamerules, updater) -> {
-                updater.getModifier(HealthModifier.class).update(-2);
-            }),
-            new StepPair(16, (server, gamerules, updater) -> {
-                updater.getModifier(StepHeightModifier.class).update(0.5);
-            }),
-            new StepPair(18, (server, gamerules, updater) -> {
+            new StepPair(8, (server, gamerules, updater) -> {
                 updater.getModifier(FallDamageMultiplierModifier.class).update(0.25);
             }),
-            new StepPair(20, (server, gamerules, updater) -> {
+            new StepPair(10, (server, gamerules, updater) -> {
+                updater.getModifier(HealthModifier.class).update(-2);
+            }),
+            new StepPair(12, (server, gamerules, updater) -> {
+                updater.getModifier(StepHeightModifier.class).update(0.6);
+            }),
+            new StepPair(13, (server, gamerules, updater) -> {
                 gamerules.get(GameRules.TNT_EXPLOSION_DROP_DECAY).set(true, server);
             }),
-            new StepPair(21, (server, gamerules, updater) -> {
+            new StepPair(15, (server, gamerules, updater) -> {
                 updater.getModifier(SpawnReinforcementsModifier.class).update(0.25);
             }),
-            new StepPair(22, (server, gamerules, updater) -> {
+            new StepPair(16, (server, gamerules, updater) -> {
                 gamerules.get(GameRules.REDUCED_DEBUG_INFO).set(true, server);
             }),
-            new StepPair(23, (server, gamerules, updater) -> {
+            new StepPair(18, (server, gamerules, updater) -> {
                 updater.getModifier(FallDamageMultiplierModifier.class).update(0.5);
+            }),
+            new StepPair(20, (server, gamerules, updater) -> {
+                updater.getModifier(HealthModifier.class).update(-4);
+            }),
+            new StepPair(21, (server, gamerules, updater) -> {
+                updater.getModifier(FallDamageMultiplierModifier.class).update(0.5);
+            }),
+            new StepPair(22, (server, gamerules, updater) -> {
+                gamerules.get(GameRules.PLAYERS_SLEEPING_PERCENTAGE).set(100, server);
+            }),
+            new StepPair(23, (server, gamerules, updater) -> {
+                updater.getModifier(FollowRangeModifier.class).update(0.35);
             }),
             new StepPair(24, (server, gamerules, updater) -> {
                 gamerules.get(GameRules.WATER_SOURCE_CONVERSION).set(false, server);
             }),
-            new StepPair(25, (server, gamerules, updater) -> updater.updateDifficulty(3)),
+            new StepPair(25, (server, gamerules, updater) -> {
+                updater.getModifier(SpawnReinforcementsModifier.class).update(0.5);
+            }),
             new StepPair(26, (server, gamerules, updater) -> {
                 updater.getModifier(StepHeightModifier.class).update(1);
-            }),
-            new StepPair(27, (server, gamerules, updater) -> {
-                updater.getModifier(FollowRangeModifier.class).update(0.35);
             }),
             new StepPair(28, (server, gamerules, updater) -> {
                 gamerules.get(GameRules.DO_LIMITED_CRAFTING).set(true, server);
             }),
             new StepPair(30, (server, gamerules, updater) -> {
-                updater.getModifier(HealthModifier.class).update(-4);
+                gamerules.get(GameRules.UNIVERSAL_ANGER).set(true, server);
             }),
             new StepPair(32, (server, gamerules, updater) -> {
-                gamerules.get(GameRules.UNIVERSAL_ANGER).set(true, server);
+                updater.getModifier(FallDamageMultiplierModifier.class).update(1);
             }),
             new StepPair(33, (server, gamerules, updater) -> {
                 updater.getModifier(SpawnReinforcementsModifier.class).update(0.5);
             }),
             new StepPair(35, (server, gamerules, updater) -> {
-                gamerules.get(GameRules.PLAYERS_SLEEPING_PERCENTAGE).set(100, server);
+                updater.getModifier(FollowRangeModifier.class).update(1);
             }),
             new StepPair(37, (server, gamerules, updater) -> {
-                updater.getModifier(FallDamageMultiplierModifier.class).update(1);
-            }),
-            new StepPair(38, (server, gamerules, updater) -> {
                 gamerules.get(GameRules.FORGIVE_DEAD_PLAYERS).set(false, server);
             }),
             new StepPair(40, (server, gamerules, updater) -> {
@@ -205,14 +210,16 @@ public class GlobalDifficultyManager extends DifficultyManager {
         if (numberOfDeath >= STEPS[1].level()) {
             sb.append("\n\n");
         }
-        if (numberOfDeath >= STEPS[14].level()) {
+        if (numberOfDeath >= STEPS[STEPS.length-1].level()) {
             sb.append("§cWell... Good luck... you dont have regen anymore§r");
-        } else if (numberOfDeath >= STEPS[11].level()) {
+        } else if (numberOfDeath >= STEPS[21].level()) {
             sb.append("§cNether is gonna be very dangerous...§r");
-        } else if (numberOfDeath >= STEPS[7].level()) {
-            sb.append("§eOh fck, no more F3§r");
+        } else if (numberOfDeath >= STEPS[9].level()) {
+            sb.append("§eThis is so fcking annoying!§r");
         } else if (numberOfDeath >= STEPS[5].level()) {
-            sb.append("§eNormal difficulty is back!§r");
+            sb.append("§eMobs are modified, right?...§r");
+        } else if (numberOfDeath >= STEPS[3].level()) {
+            sb.append("§2Normal difficulty is back!§r");
         } else if (numberOfDeath >= STEPS[1].level()) {
             sb.append("§2Oh no, the difficulty is becoming harder.§r");
         }
