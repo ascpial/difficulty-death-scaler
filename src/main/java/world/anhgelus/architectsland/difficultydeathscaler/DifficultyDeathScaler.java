@@ -112,17 +112,17 @@ public class DifficultyDeathScaler implements ModInitializer {
         });
 
         ServerLivingEntityEvents.AFTER_DEATH.register((entity, damageSource) -> {
-            if (entity instanceof ServerPlayerEntity) {
-                difficultyManager.increaseDeath();
-
-                final var bounty = bountyMap.get(entity.getUuid());
-                if (bounty == null) return;
-                if (damageSource.getAttacker() instanceof final ServerPlayerEntity player) {
-                    bounty.onKill(getPlayerDifficultyManager(player.server, player));
-                }
+            if (!(entity instanceof ServerPlayerEntity)) {
+                BossManager.handleKill(entity, difficultyManager);
                 return;
             }
-            BossManager.handleKill(entity, difficultyManager);
+            difficultyManager.increaseDeath();
+
+            final var bounty = bountyMap.get(entity.getUuid());
+            if (bounty == null) return;
+            if (damageSource.getAttacker() instanceof final ServerPlayerEntity player) {
+                bounty.onKill(getPlayerDifficultyManager(player.server, player));
+            }
         });
 
         ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
@@ -132,6 +132,10 @@ public class DifficultyDeathScaler implements ModInitializer {
             playerDifficulty.player = newPlayer;
             playerDifficulty.increaseDeath();
             playerDifficulty.applyModifiers();
+
+            final var bounty = bountyMap.get(newPlayer.getUuid());
+            if (bounty == null) return;
+            bounty.onDeath();
         });
 
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {

@@ -26,7 +26,7 @@ Level of difficulty:
 
 The mod adds one command: `/difficultydeathscaler`
 - `/difficultydeathscaler get` gives the current difficulty
-- `/difficultydeathscaler set <number of death>` sets the number of death (player needs to be OP) 
+- `/difficultydeathscaler set <number of death>` sets the number of death (player must to be OP) 
 
 ## Technologies
 

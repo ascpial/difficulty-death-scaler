@@ -16,7 +16,7 @@ public class Bounty {
 
     private final GlobalDifficultyManager globalDifficulty;
     private final PlayerDifficultyManager playerDifficulty;
-    private final ServerPlayerEntity player;
+    private ServerPlayerEntity player;
 
     private boolean enabled = false;
 
@@ -40,9 +40,11 @@ public class Bounty {
         final var sb = new StringBuilder();
         sb.append( "§8==================== §rBounty! §8====================§r\n");
         sb.append("A bounty is put on ");
+
         var name = "";
         if (player.getDisplayName() == null) name = player.getName().getString();
         else name = player.getDisplayName().getString();
+
         sb.append(name);
         sb.append(" because he ");
         if (playerDifficulty.totalOfDeath() == 0) {
@@ -52,6 +54,7 @@ public class Bounty {
         } else {
             sb.append("died only ").append(playerDifficulty.totalOfDeath()).append(" times!");
         }
+
         sb.append("\n\n");
         sb.append("If you kill ").append(name).append(", you will swap your personal difficulty!\n\n");
         sb.append("Good luck!\n");
@@ -87,6 +90,13 @@ public class Bounty {
         playerDifficulty.setNumberOfDeath(n, false);
     }
 
+    public void onDeath() {
+        if (!enabled) return;
+        player = playerDifficulty.player;
+        if ((double) playerDifficulty.totalOfDeath() / globalDifficulty.totalOfDeath() > BOUNTY_DEATH_PERCENTAGE)
+            disable();
+    }
+
     public void onDisconnect() {
         if (!enabled) return;
         disable();
@@ -109,10 +119,11 @@ public class Bounty {
         timer.cancel();
     }
 
-    public static @Nullable Bounty newBounty(GlobalDifficultyManager difficultyManager, PlayerDifficultyManager playerDifficulty) {
-        if (difficultyManager.totalOfDeath() >= BOUNTY_ENABLED_AFTER &&
-                (double) playerDifficulty.totalOfDeath() / difficultyManager.totalOfDeath() <= BOUNTY_DEATH_PERCENTAGE) {
-            return new Bounty(difficultyManager, playerDifficulty);
+    public static @Nullable Bounty newBounty(GlobalDifficultyManager globalDifficulty, PlayerDifficultyManager playerDifficulty) {
+        if (globalDifficulty.totalOfDeath() >= BOUNTY_ENABLED_AFTER &&
+                (double) playerDifficulty.totalOfDeath() / globalDifficulty.totalOfDeath() <= BOUNTY_DEATH_PERCENTAGE
+        ) {
+            return new Bounty(globalDifficulty, playerDifficulty);
         }
         return null;
     }
