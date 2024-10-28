@@ -22,7 +22,7 @@ public class PlayerDifficultyManager extends DifficultyManager {
     public @Nullable ServerPlayerEntity player;
     public @Nullable UUID uuid = null;
 
-    public static final int SECONDS_BEFORE_DECREASED = 12*60*60;
+    public static final int SECONDS_BEFORE_DECREASED = 24*60*60;
     public static final int MAX_DEATHS_DAY = 5;
 
     public static class HealthModifier extends PlayerHealthModifier {
