@@ -80,13 +80,6 @@ public abstract class DifficultyManager extends DifficultyTimer {
 
         private final Map<Class<? extends Modifier<?>>, Modifier<?>> map = new HashMap<>();
 
-        public static final Map<net.minecraft.world.Difficulty, Integer> DIFFICULTY_LEVEL = Map.of(
-                net.minecraft.world.Difficulty.PEACEFUL, 0,
-                net.minecraft.world.Difficulty.EASY, 1,
-                net.minecraft.world.Difficulty.NORMAL, 2,
-                net.minecraft.world.Difficulty.HARD, 3
-        );
-
         public void updateDifficulty(int level) {
             if (level > difficultyLevel) difficultyLevel = level;
         }
