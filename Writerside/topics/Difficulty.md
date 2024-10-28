@@ -10,4 +10,6 @@ When a player dies, the global difficulty is increased for everyone and his/her 
 These difficulties work with steps: a step is enabled after a number of player died.
 Each step is unique.
 
-After a long time without death, the difficulty is decreased step by step.
+After a certain time without death (12 hours), the difficulty is decreased step by step.
+
+BUT if no one died during a long time (3 days), the difficulty will be increased each 12 hours.
