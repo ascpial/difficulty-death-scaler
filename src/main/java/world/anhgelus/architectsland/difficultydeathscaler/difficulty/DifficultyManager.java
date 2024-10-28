@@ -1,18 +1,14 @@
 package world.anhgelus.architectsland.difficultydeathscaler.difficulty;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.minecraft.world.GameRules;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import world.anhgelus.architectsland.difficultydeathscaler.difficulty.modifier.Modifier;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -80,13 +76,6 @@ public abstract class DifficultyManager extends DifficultyTimer {
 
         private final Map<Class<? extends Modifier<?>>, Modifier<?>> map = new HashMap<>();
 
-        public static final Map<net.minecraft.world.Difficulty, Integer> DIFFICULTY_LEVEL = Map.of(
-                net.minecraft.world.Difficulty.PEACEFUL, 0,
-                net.minecraft.world.Difficulty.EASY, 1,
-                net.minecraft.world.Difficulty.NORMAL, 2,
-                net.minecraft.world.Difficulty.HARD, 3
-        );
-
         public void updateDifficulty(int level) {
             if (level > difficultyLevel) difficultyLevel = level;
         }
@@ -122,59 +111,6 @@ public abstract class DifficultyManager extends DifficultyTimer {
     @FunctionalInterface
     public interface Step {
         void reached(MinecraftServer server, GameRules gamerules, Updater updater);
-    }
-
-    public static abstract class Modifier<T extends LivingEntity> {
-        public static final String PREFIX = "dds_";
-
-        protected double value = 0;
-        protected final Identifier id;
-        protected final RegistryEntry<EntityAttribute> attribute;
-        protected final EntityAttributeModifier.Operation operation;
-
-        protected Modifier(Identifier id, RegistryEntry<EntityAttribute> attribute, EntityAttributeModifier.Operation operation) {
-            this.id = id;
-            this.attribute = attribute;
-            this.operation = operation;
-        }
-
-        /**
-         * Update the value if needed
-         * @param newValue newValue
-         */
-        public abstract void update(double newValue);
-
-        /**
-         * Apply modifier to player
-         * @param entity Entity to apply the modifier
-         */
-        public void apply(@Nullable T entity) {
-            if (entity == null) return;
-            apply(id, attribute, operation, entity, value);
-        }
-
-        protected static void apply(
-                Identifier id,
-                RegistryEntry<EntityAttribute> attribute,
-                EntityAttributeModifier.Operation operation,
-                LivingEntity entity,
-                double value
-        ) {
-            final var attr = entity.getAttributeInstance(attribute);
-            if (attr == null) return;
-
-            attr.removeModifier(id);
-            if (value == 0) return;
-
-            final var playerHealthModifier = new EntityAttributeModifier(
-                    id, value, operation
-            );
-            attr.addPersistentModifier(playerHealthModifier);
-        }
-
-        public double getValue() {
-            return value;
-        }
     }
 
     /**
@@ -310,7 +246,7 @@ public abstract class DifficultyManager extends DifficultyTimer {
         return sb.toString();
     }
 
-    protected String generateFooterUpdate(StepPair[] steps, UpdateType updateType) {
+    protected String generateFooterUpdate(StepPair[] steps, String beginning, UpdateType updateType) {
         if (numberOfDeath < steps[1].level()) {
             return "The difficulty cannot get lower. Congratulations!\n§8=============================================§r";
         }
@@ -331,7 +267,7 @@ public abstract class DifficultyManager extends DifficultyTimer {
                 .append(printTime(System.currentTimeMillis() / 1000 - timerStart))
                 .append("§r, but you had to die and ruin everything, hadn't you?");
         } else {
-            sb.append("If no one died for §6")
+            sb.append("If ").append(beginning).append(" for §6")
                 .append(printTime(secondsBeforeDecreased - System.currentTimeMillis() / 1000 + timerStart))
                 .append("§r, then the difficulty would’ve decreased... But you chose your fate.");
         }

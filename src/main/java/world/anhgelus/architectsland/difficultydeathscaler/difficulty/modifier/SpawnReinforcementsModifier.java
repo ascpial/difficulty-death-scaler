@@ -6,9 +6,8 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
-import world.anhgelus.architectsland.difficultydeathscaler.difficulty.DifficultyManager;
 
-public class SpawnReinforcementsModifier extends DifficultyManager.Modifier<HostileEntity> {
+public class SpawnReinforcementsModifier extends Modifier<HostileEntity> {
     public static final RegistryEntry<EntityAttribute> ATTRIBUTE = EntityAttributes.ZOMBIE_SPAWN_REINFORCEMENTS;
     public static final EntityAttributeModifier.Operation OPERATION = EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE;
     protected static Identifier ID = Identifier.of(PREFIX + "spawn_reinforcements_modifier");
