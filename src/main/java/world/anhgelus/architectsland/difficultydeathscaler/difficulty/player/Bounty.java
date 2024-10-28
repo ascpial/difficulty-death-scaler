@@ -71,10 +71,11 @@ public class Bounty {
         final var sb = new StringBuilder();
         sb.append( "§8==================== §rBounty! §8====================§r\n");
 
-        var attackerName = "";
         var name = "";
         if (player.getDisplayName() == null) name = player.getName().getString();
         else name = player.getDisplayName().getString();
+
+        var attackerName = "";
         if (attackerDifficulty.player.getDisplayName() == null) attackerName = player.getName().getString();
         else attackerName = attackerDifficulty.player.getDisplayName().getString();
 
