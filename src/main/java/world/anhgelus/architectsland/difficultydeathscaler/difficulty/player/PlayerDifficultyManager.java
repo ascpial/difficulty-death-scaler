@@ -195,7 +195,7 @@ public class PlayerDifficultyManager extends DifficultyManager {
         }
         sb.append(heartAmount).append(" ❤§r\n\n");
 
-        sb.append(generateFooterUpdate(STEPS, updateType));
+        sb.append(generateFooterUpdate(STEPS, "you didn't die", updateType));
 
         return sb.toString();
     }

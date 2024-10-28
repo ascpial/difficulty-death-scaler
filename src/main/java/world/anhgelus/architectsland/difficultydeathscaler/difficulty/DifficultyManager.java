@@ -246,7 +246,7 @@ public abstract class DifficultyManager extends DifficultyTimer {
         return sb.toString();
     }
 
-    protected String generateFooterUpdate(StepPair[] steps, UpdateType updateType) {
+    protected String generateFooterUpdate(StepPair[] steps, String beginning, UpdateType updateType) {
         if (numberOfDeath < steps[1].level()) {
             return "The difficulty cannot get lower. Congratulations!\n§8=============================================§r";
         }
@@ -267,7 +267,7 @@ public abstract class DifficultyManager extends DifficultyTimer {
                 .append(printTime(System.currentTimeMillis() / 1000 - timerStart))
                 .append("§r, but you had to die and ruin everything, hadn't you?");
         } else {
-            sb.append("If no one died for §6")
+            sb.append("If ").append(beginning).append(" for §6")
                 .append(printTime(secondsBeforeDecreased - System.currentTimeMillis() / 1000 + timerStart))
                 .append("§r, then the difficulty would’ve decreased... But you chose your fate.");
         }

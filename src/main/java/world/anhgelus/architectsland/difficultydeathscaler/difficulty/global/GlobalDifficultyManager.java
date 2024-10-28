@@ -219,7 +219,7 @@ public class GlobalDifficultyManager extends DifficultyManager {
         sb.append("§r\n\n");
 
         if (updateType == null && increaser.enabled()) updateType = UpdateType.AUTOMATIC_INCREASE;
-        sb.append(generateFooterUpdate(STEPS, updateType));
+        sb.append(generateFooterUpdate(STEPS, "no one died", updateType));
 
         return sb.toString();
     }
