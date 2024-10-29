@@ -56,8 +56,6 @@ public class DifficultyDeathScaler implements ModInitializer {
     public void onInitialize() {
         LOGGER.info("Difficulty Death Scaler started");
 
-        final LiteralArgumentBuilder<ServerCommandSource> command = literal("difficultydeathscaler");
-
         final LiteralArgumentBuilder<ServerCommandSource> globalCommand = literal("global");
         globalCommand.then(literal("get").executes(context -> {
             final var source = context.getSource();
@@ -107,10 +105,18 @@ public class DifficultyDeathScaler implements ModInitializer {
             )
         ));
 
+        final LiteralArgumentBuilder<ServerCommandSource> command = literal("difficultydeathscaler");
         command.then(globalCommand);
         command.then(playerCommand);
 
-        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(command));
+        final LiteralArgumentBuilder<ServerCommandSource> commandShort = literal("dds");
+        commandShort.then(globalCommand);
+        commandShort.then(playerCommand);
+
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+            dispatcher.register(command);
+            dispatcher.register(commandShort);
+        });
 
         // set up difficulty of deathSteps[0]
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {

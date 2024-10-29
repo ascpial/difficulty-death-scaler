@@ -1,6 +1,6 @@
 # Command
 
-Difficulty Death Scaler provides the `/difficultydeathscaler` utility command.
+Difficulty Death Scaler provides the `/difficultydeathscaler` (you can also use the alias `/dds`) utility command.
 
 ## Global difficulty
 
