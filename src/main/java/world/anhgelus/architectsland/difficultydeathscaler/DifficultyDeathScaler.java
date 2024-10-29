@@ -100,6 +100,7 @@ public class DifficultyDeathScaler implements ModInitializer {
                     source.sendFeedback(() -> {
                         return Text.literal("The difficulty has been changed for ").append(target.getDisplayName());
                     }, true);
+                    target.sendMessage(Text.literal("Your difficulty has been changed by ").append(source.getDisplayName()));
                     return Command.SINGLE_SUCCESS;
                 })
             )
