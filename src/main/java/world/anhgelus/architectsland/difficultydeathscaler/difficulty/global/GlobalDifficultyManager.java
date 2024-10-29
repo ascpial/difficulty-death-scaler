@@ -84,6 +84,7 @@ public class GlobalDifficultyManager extends DifficultyManager {
             }),
             new StepPair(15, (server, gamerules, updater) -> {
                 updater.getModifier(SpawnReinforcementsModifier.class).update(0.25);
+                BETTER_ZOMBIES = true;
             }),
             new StepPair(16, (server, gamerules, updater) -> {
                 gamerules.get(GameRules.REDUCED_DEBUG_INFO).set(true, server);
@@ -136,6 +137,7 @@ public class GlobalDifficultyManager extends DifficultyManager {
     };
 
     protected static boolean BETTER_SKELETON = false;
+    protected static boolean BETTER_ZOMBIES = false;
 
     protected double healthModifier = 0;
     protected double followRangeModifier = 0;
@@ -263,5 +265,9 @@ public class GlobalDifficultyManager extends DifficultyManager {
 
     public static boolean betterSkeleton() {
         return BETTER_SKELETON;
+    }
+
+    public static boolean betterZombies() {
+        return BETTER_ZOMBIES;
     }
 }

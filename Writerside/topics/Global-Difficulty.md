@@ -40,7 +40,8 @@ It mainly modifies vanilla gamerules.
         All blocks do not drop after a TNT explosion.
     </def>
     <def title="15 deaths" default-state="collapsed">
-        Increase mob reinforcement by 25%.
+        <p>Increase mob reinforcement by 25%.</p>
+        <p>Zombies are more intelligent. (Good luck)</p>
     </def>
     <def title="16 and 17 deaths" default-state="collapsed">
         <p>The debug screen (F3) is reduced.</p>
