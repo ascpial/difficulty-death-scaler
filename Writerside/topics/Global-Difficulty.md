@@ -69,7 +69,8 @@ It mainly modifies vanilla gamerules.
         Increase step height to 1.5.
     </def>
     <def title="28 and 29 deaths" default-state="collapsed">
-        Limit crafting to recipes unlocked.
+        <p>Limit crafting to recipes unlocked.</p>
+        <p>Piglins brutes spawn in the Nether... (Good luck)</p>
     </def>
     <def title="30 and 31 deaths" default-state="collapsed">
         Enable universal anger.
@@ -81,7 +82,8 @@ It mainly modifies vanilla gamerules.
         Increase mob reinforcement by 75%.
     </def>
     <def title="35 and 36 deaths" default-state="collapsed">
-        Increase follow range by 100%.
+        <p>Increase follow range by 100%.</p>
+        <p>Creepers are buffed... (Good luck)</p>
     </def>
     <def title="37, 38 and 38 deaths" default-state="collapsed">
         Never forgive dead players!
