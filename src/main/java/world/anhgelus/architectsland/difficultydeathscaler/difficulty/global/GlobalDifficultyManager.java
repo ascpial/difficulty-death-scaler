@@ -119,6 +119,7 @@ public class GlobalDifficultyManager extends DifficultyManager {
             }),
             new StepPair(28, (server, gamerules, updater) -> {
                 gamerules.get(GameRules.DO_LIMITED_CRAFTING).set(true, server);
+                SPAWN_PIGLIN_BRUTE = true;
             }),
             new StepPair(30, (server, gamerules, updater) -> {
                 gamerules.get(GameRules.UNIVERSAL_ANGER).set(true, server);
@@ -132,7 +133,6 @@ public class GlobalDifficultyManager extends DifficultyManager {
             new StepPair(35, (server, gamerules, updater) -> {
                 updater.getModifier(FollowRangeModifier.class).update(1);
                 BETTER_CREEPERS = true;
-                SPAWN_PIGLIN_BRUTE = true;
             }),
             new StepPair(37, (server, gamerules, updater) -> {
                 gamerules.get(GameRules.FORGIVE_DEAD_PLAYERS).set(false, server);
@@ -254,11 +254,11 @@ public class GlobalDifficultyManager extends DifficultyManager {
         FollowRangeModifier.apply(hostile, followRangeModifier);
         StepHeightModifier.apply(hostile, stepHeightModifier);
         SpawnReinforcementsModifier.apply(hostile, spawnReinforcementModifier);
-//        if (SPAWN_PIGLIN_BRUTE && hostile instanceof PiglinEntity && Math.random() < 0.001) {
-//            EntityType.PIGLIN_BRUTE.spawn((ServerWorld) hostile.getWorld(), hostile.getBlockPos(), SpawnReason.MOB_SUMMONED);
-//            EntityType.PIGLIN_BRUTE.spawn((ServerWorld) hostile.getWorld(), hostile.getBlockPos(), SpawnReason.MOB_SUMMONED);
-//            hostile.discard();
-//        }
+        if (SPAWN_PIGLIN_BRUTE && !hostile.hasCustomName() && hostile instanceof PiglinEntity && Math.random()*100 < 2) {
+            EntityType.PIGLIN_BRUTE.spawn((ServerWorld) hostile.getWorld(), hostile.getBlockPos(), SpawnReason.MOB_SUMMONED);
+            EntityType.PIGLIN_BRUTE.spawn((ServerWorld) hostile.getWorld(), hostile.getBlockPos(), SpawnReason.MOB_SUMMONED);
+            hostile.discard();
+        }
     }
 
     @Override
