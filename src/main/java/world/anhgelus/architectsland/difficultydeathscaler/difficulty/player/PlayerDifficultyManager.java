@@ -23,7 +23,6 @@ public class PlayerDifficultyManager extends DifficultyManager {
     public @Nullable UUID uuid = null;
 
     public static final int SECONDS_BEFORE_DECREASED = 24*60*60;
-    public static final int MAX_DEATHS_DAY = 5;
 
     public static class HealthModifier extends PlayerHealthModifier {
         public static final Identifier ID = Identifier.of(PREFIX + "player_health_modifier");
@@ -254,7 +253,10 @@ public class PlayerDifficultyManager extends DifficultyManager {
      * @return true if the player was kicked
      */
     public boolean kickIfDiedTooMuch(ServerPlayNetworkHandler handler) {
-        if (deathDay >= MAX_DEATHS_DAY) {
+        final var rules = server.getGameRules();
+        if (rules.get(DifficultyDeathScaler.ENABLE_TEMP_BAN).get() &&
+                deathDay >= rules.get(DifficultyDeathScaler.DEATH_BEFORE_TEMP_BAN).get()
+        ) {
             DifficultyDeathScaler.LOGGER.info("Kick");
             handler.disconnect(Text.of("You died too much during 24h..."));
             return true;

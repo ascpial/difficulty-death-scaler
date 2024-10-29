@@ -10,6 +10,8 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
+import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
+import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.entity.mob.HostileEntity;
@@ -17,6 +19,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import net.minecraft.world.GameRules;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import world.anhgelus.architectsland.difficultydeathscaler.boss.BossManager;
@@ -34,6 +37,17 @@ public class DifficultyDeathScaler implements ModInitializer {
     public static final String MOD_ID = "difficulty-death-scaler";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     private GlobalDifficultyManager difficultyManager = null;
+
+    public static final GameRules.Key<GameRules.BooleanRule> ENABLE_TEMP_BAN = GameRuleRegistry.register(
+            MOD_ID +":enableTempBan",
+            GameRules.Category.MISC,
+            GameRuleFactory.createBooleanRule(true)
+    );
+    public static final GameRules.Key<GameRules.IntRule> DEATH_BEFORE_TEMP_BAN = GameRuleRegistry.register(
+            MOD_ID +":deathBeforeTempBan",
+            GameRules.Category.MISC,
+            GameRuleFactory.createIntRule(5)
+    );
 
     private final Map<UUID, PlayerDifficultyManager> playerDifficultyManagerMap = new HashMap<>();
     private final Map<UUID, Bounty> bountyMap = new HashMap<>();

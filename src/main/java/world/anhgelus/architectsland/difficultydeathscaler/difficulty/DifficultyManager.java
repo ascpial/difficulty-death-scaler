@@ -8,6 +8,7 @@ import net.minecraft.util.Pair;
 import net.minecraft.world.GameRules;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import world.anhgelus.architectsland.difficultydeathscaler.DifficultyDeathScaler;
 import world.anhgelus.architectsland.difficultydeathscaler.difficulty.modifier.Modifier;
 
 import java.lang.reflect.InvocationTargetException;
@@ -77,7 +78,10 @@ public abstract class DifficultyManager extends DifficultyTimer {
         private final Map<Class<? extends Modifier<?>>, Modifier<?>> map = new HashMap<>();
 
         public void updateDifficulty(int level) {
-            if (level > difficultyLevel) difficultyLevel = level;
+            if (level > difficultyLevel) {
+                DifficultyDeathScaler.LOGGER.info("updating difficulty to {}", level);
+                difficultyLevel = level;
+            }
         }
 
         public Modifier<?> getModifier(Class<? extends Modifier<?>> clazz) {
@@ -98,6 +102,7 @@ public abstract class DifficultyManager extends DifficultyTimer {
         }
 
         public net.minecraft.world.Difficulty getDifficulty() {
+            DifficultyDeathScaler.LOGGER.info("getting difficulty");
             return switch (difficultyLevel) {
                 case 0 -> net.minecraft.world.Difficulty.PEACEFUL;
                 case 1 -> net.minecraft.world.Difficulty.EASY;
@@ -185,6 +190,7 @@ public abstract class DifficultyManager extends DifficultyTimer {
         }
 
         if (Arrays.stream(steps).noneMatch(x -> x.level() == numberOfDeath) && updateType != UpdateType.SET) return;
+        DifficultyDeathScaler.LOGGER.info("Difficulty updated: {}", updater.difficultyLevel);
         final var difficulty = updater.getDifficulty();
         server.setDifficulty(difficulty, true);
 
