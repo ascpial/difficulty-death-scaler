@@ -79,7 +79,6 @@ public abstract class DifficultyManager extends DifficultyTimer {
 
         public void updateDifficulty(int level) {
             if (level > difficultyLevel) {
-                DifficultyDeathScaler.LOGGER.info("updating difficulty to {}", level);
                 difficultyLevel = level;
             }
         }
@@ -102,7 +101,6 @@ public abstract class DifficultyManager extends DifficultyTimer {
         }
 
         public net.minecraft.world.Difficulty getDifficulty() {
-            DifficultyDeathScaler.LOGGER.info("getting difficulty");
             return switch (difficultyLevel) {
                 case 0 -> net.minecraft.world.Difficulty.PEACEFUL;
                 case 1 -> net.minecraft.world.Difficulty.EASY;
@@ -190,9 +188,6 @@ public abstract class DifficultyManager extends DifficultyTimer {
         }
 
         if (Arrays.stream(steps).noneMatch(x -> x.level() == numberOfDeath) && updateType != UpdateType.SET) return;
-        DifficultyDeathScaler.LOGGER.info("Difficulty updated: {}", updater.difficultyLevel);
-        final var difficulty = updater.getDifficulty();
-        server.setDifficulty(difficulty, true);
 
         onUpdate(updateType, updater);
     }

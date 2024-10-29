@@ -170,6 +170,9 @@ public class GlobalDifficultyManager extends DifficultyManager {
 
     @Override
     protected void onUpdate(UpdateType updateType, Updater updater) {
+        final var difficulty = updater.getDifficulty();
+        server.setDifficulty(difficulty, true);
+
         updateModifiersValue(updater);
 
         if (updateType == UpdateType.INCREASE) totalOfDeath++;
