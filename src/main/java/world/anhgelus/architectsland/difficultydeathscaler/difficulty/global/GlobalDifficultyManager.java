@@ -121,7 +121,7 @@ public class GlobalDifficultyManager extends DifficultyManager {
                 updater.getModifier(FallDamageMultiplierModifier.class).update(1);
             }),
             new StepPair(33, (server, gamerules, updater) -> {
-                updater.getModifier(SpawnReinforcementsModifier.class).update(0.5);
+                updater.getModifier(SpawnReinforcementsModifier.class).update(0.75);
             }),
             new StepPair(35, (server, gamerules, updater) -> {
                 updater.getModifier(FollowRangeModifier.class).update(1);
