@@ -19,12 +19,13 @@ It mainly modifies vanilla gamerules.
         Set the difficulty to Hard.
     </def>
     <def title="5 and 6 deaths" default-state="collapsed">
-        All blocks do not drop after a mob explosion (e.g., creeper) or block explosion (except TNT).
-        Phantoms are back...
-        (This is the vanilla hard difficulty)
+        <p>All blocks do not drop after a mob explosion (e.g., creeper) or block explosion (except TNT).</p>
+        <p>Phantoms are back...</p>
+        <p>(This is the vanilla hard difficulty)</p>
     </def>
     <def title="7 deaths" default-state="collapsed">
-        Increase mob follow range by 25%.
+        <p>Increase mob follow range by 25%.</p>
+        <p>Skeletons are more intelligent. (Good luck)</p>
     </def>
     <def title="8 and 9 deaths" default-state="collapsed">
         Increase fall damage by 25%.

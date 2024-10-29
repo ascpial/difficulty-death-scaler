@@ -68,6 +68,7 @@ public class GlobalDifficultyManager extends DifficultyManager {
             }),
             new StepPair(7, (server, gamerules, updater) -> {
                 updater.getModifier(FollowRangeModifier.class).update(0.25);
+                BETTER_SKELETON = true;
             }),
             new StepPair(8, (server, gamerules, updater) -> {
                 updater.getModifier(FallDamageMultiplierModifier.class).update(0.25);
@@ -133,6 +134,8 @@ public class GlobalDifficultyManager extends DifficultyManager {
                 gamerules.get(GameRules.NATURAL_REGENERATION).set(false, server);
             }),
     };
+
+    protected static boolean BETTER_SKELETON = false;
 
     protected double healthModifier = 0;
     protected double followRangeModifier = 0;
@@ -256,5 +259,9 @@ public class GlobalDifficultyManager extends DifficultyManager {
 
     public int totalOfDeath() {
         return totalOfDeath;
+    }
+
+    public static boolean betterSkeleton() {
+        return BETTER_SKELETON;
     }
 }

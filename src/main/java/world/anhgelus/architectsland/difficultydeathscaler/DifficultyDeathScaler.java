@@ -133,10 +133,8 @@ public class DifficultyDeathScaler implements ModInitializer {
             difficultyManager.increaseDeath();
 
             final var bounty = bountyMap.get(entity.getUuid());
-            if (bounty == null) return;
-            if (damageSource.getAttacker() instanceof final ServerPlayerEntity player) {
-                bounty.onKill(getPlayerDifficultyManager(player.server, player));
-            }
+            if (bounty == null || !(damageSource.getAttacker() instanceof final ServerPlayerEntity player)) return;
+            bounty.onKill(getPlayerDifficultyManager(player.server, player));
         });
 
         ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
