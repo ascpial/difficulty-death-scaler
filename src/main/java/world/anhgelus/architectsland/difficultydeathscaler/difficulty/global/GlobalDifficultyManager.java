@@ -1,8 +1,12 @@
 package world.anhgelus.architectsland.difficultydeathscaler.difficulty.global;
 
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.PiglinEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.Difficulty;
@@ -127,6 +131,8 @@ public class GlobalDifficultyManager extends DifficultyManager {
             }),
             new StepPair(35, (server, gamerules, updater) -> {
                 updater.getModifier(FollowRangeModifier.class).update(1);
+                BETTER_CREEPERS = true;
+                SPAWN_PIGLIN_BRUTE = true;
             }),
             new StepPair(37, (server, gamerules, updater) -> {
                 gamerules.get(GameRules.FORGIVE_DEAD_PLAYERS).set(false, server);
@@ -138,6 +144,8 @@ public class GlobalDifficultyManager extends DifficultyManager {
 
     protected static boolean BETTER_SKELETON = false;
     protected static boolean BETTER_ZOMBIES = false;
+    protected static boolean BETTER_CREEPERS = false;
+    protected static boolean SPAWN_PIGLIN_BRUTE = false;
 
     protected double healthModifier = 0;
     protected double followRangeModifier = 0;
@@ -246,6 +254,11 @@ public class GlobalDifficultyManager extends DifficultyManager {
         FollowRangeModifier.apply(hostile, followRangeModifier);
         StepHeightModifier.apply(hostile, stepHeightModifier);
         SpawnReinforcementsModifier.apply(hostile, spawnReinforcementModifier);
+//        if (SPAWN_PIGLIN_BRUTE && hostile instanceof PiglinEntity && Math.random() < 0.001) {
+//            EntityType.PIGLIN_BRUTE.spawn((ServerWorld) hostile.getWorld(), hostile.getBlockPos(), SpawnReason.MOB_SUMMONED);
+//            EntityType.PIGLIN_BRUTE.spawn((ServerWorld) hostile.getWorld(), hostile.getBlockPos(), SpawnReason.MOB_SUMMONED);
+//            hostile.discard();
+//        }
     }
 
     @Override
@@ -269,5 +282,13 @@ public class GlobalDifficultyManager extends DifficultyManager {
 
     public static boolean betterZombies() {
         return BETTER_ZOMBIES;
+    }
+
+    public static boolean betterCreepers() {
+        return BETTER_CREEPERS;
+    }
+
+    public static boolean spawnPiglinBrute() {
+        return SPAWN_PIGLIN_BRUTE;
     }
 }
