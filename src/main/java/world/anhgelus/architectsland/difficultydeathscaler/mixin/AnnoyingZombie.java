@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.LongDoorInteractGoal;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.ZombieEntity;
+import net.minecraft.entity.mob.ZombifiedPiglinEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -26,6 +27,7 @@ public abstract class AnnoyingZombie extends HostileEntity {
 
     @Inject(at = @At("RETURN"), method = "initGoals")
     protected void betterGoals(CallbackInfo ci) {
+        if ((ZombieEntity)(Object) this instanceof ZombifiedPiglinEntity) return;
         if (GlobalDifficultyManager.betterZombies()) GoalsUtils.commonBetterGoals(this, targetSelector);
     }
 }
