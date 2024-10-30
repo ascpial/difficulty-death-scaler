@@ -8,7 +8,6 @@ import net.minecraft.util.Pair;
 import net.minecraft.world.GameRules;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import world.anhgelus.architectsland.difficultydeathscaler.DifficultyDeathScaler;
 import world.anhgelus.architectsland.difficultydeathscaler.difficulty.modifier.Modifier;
 
 import java.lang.reflect.InvocationTargetException;
@@ -19,12 +18,12 @@ public abstract class DifficultyManager extends DifficultyTimer {
 
     protected final long secondsBeforeDecreased;
 
-    protected final StepPair[] steps;
+    protected final Step[] steps;
     protected final MinecraftServer server;
 
     protected int numberOfDeath;
 
-    protected DifficultyManager(MinecraftServer server, StepPair[] steps, long secondsBeforeDecreased) {
+    protected DifficultyManager(MinecraftServer server, Step[] steps, long secondsBeforeDecreased) {
         timer = new Timer();
         this.server = server;
         this.steps = steps;
@@ -58,8 +57,13 @@ public abstract class DifficultyManager extends DifficultyTimer {
         AUTOMATIC_INCREASE
     }
 
-    public static final class StepPair extends Pair<Integer, Step> {
-        public StepPair(Integer level, Step reached) {
+    @FunctionalInterface
+    public interface Reached {
+        void reached(MinecraftServer server, GameRules gamerules, Updater updater);
+    }
+
+    public static final class Step extends Pair<Integer, Reached> {
+        public Step(Integer level, Reached reached) {
             super(level, reached);
         }
 
@@ -109,11 +113,6 @@ public abstract class DifficultyManager extends DifficultyTimer {
                 default -> throw new IllegalArgumentException("Difficulty level out of range: " + difficultyLevel);
             };
         }
-    }
-
-    @FunctionalInterface
-    public interface Step {
-        void reached(MinecraftServer server, GameRules gamerules, Updater updater);
     }
 
     /**
@@ -182,7 +181,7 @@ public abstract class DifficultyManager extends DifficultyTimer {
 
         onDeath(updateType, updater);
 
-        for (final StepPair step : steps) {
+        for (final Step step : steps) {
             if (step.level() <= numberOfDeath) step.reached(server, rules, updater);
             else break;
         }
@@ -218,7 +217,7 @@ public abstract class DifficultyManager extends DifficultyTimer {
 
     protected List<Modifier<?>> modifiers(int level) {
         final var updater = new Updater();
-        for (final StepPair step : steps) {
+        for (final Step step : steps) {
             if (step.level() <= level) step.reached(server, server.getGameRules(), updater);
             else break;
         }
@@ -247,7 +246,7 @@ public abstract class DifficultyManager extends DifficultyTimer {
         return sb.toString();
     }
 
-    protected String generateFooterUpdate(StepPair[] steps, String beginning, UpdateType updateType) {
+    protected String generateFooterUpdate(Step[] steps, String beginning, UpdateType updateType) {
         if (numberOfDeath < steps[1].level()) {
             return "The difficulty cannot get lower. Congratulations!\n§8=============================================§r";
         }

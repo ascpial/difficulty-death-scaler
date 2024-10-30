@@ -37,8 +37,8 @@ public class GlobalDifficultyManager extends DifficultyManager {
         }
     }
 
-    public static final StepPair[] STEPS = new StepPair[]{
-            new StepPair(0, (server, gamerules, updater) -> {
+    public static final Step[] STEPS = new Step[]{
+            new Step(0, (server, gamerules, updater) -> {
                 // mobs
                 gamerules.get(GameRules.DO_INSOMNIA).set(false, server);
                 gamerules.get(GameRules.FORGIVE_DEAD_PLAYERS).set(true, server);
@@ -60,84 +60,84 @@ public class GlobalDifficultyManager extends DifficultyManager {
                 updater.getModifier(FallDamageMultiplierModifier.class).update(0);
                 updater.updateDifficulty(1);
             }),
-            new StepPair(1, (server, gamerules, updater) -> updater.updateDifficulty(2)),
-            new StepPair(2, (server, gamerules, updater) -> {
+            new Step(1, (server, gamerules, updater) -> updater.updateDifficulty(2)),
+            new Step(2, (server, gamerules, updater) -> {
                 gamerules.get(GameRules.PLAYERS_SLEEPING_PERCENTAGE).set(70, server);
             }),
-            new StepPair(3, (server, gamerules, updater) -> updater.updateDifficulty(3)),
-            new StepPair(5, (server, gamerules, updater) -> {
+            new Step(3, (server, gamerules, updater) -> updater.updateDifficulty(3)),
+            new Step(5, (server, gamerules, updater) -> {
                 gamerules.get(GameRules.DO_INSOMNIA).set(true, server);
                 gamerules.get(GameRules.BLOCK_EXPLOSION_DROP_DECAY).set(true, server);
                 gamerules.get(GameRules.MOB_EXPLOSION_DROP_DECAY).set(true, server);
             }),
-            new StepPair(7, (server, gamerules, updater) -> {
+            new Step(7, (server, gamerules, updater) -> {
                 updater.getModifier(FollowRangeModifier.class).update(0.25);
                 BETTER_SKELETON = true;
             }),
-            new StepPair(8, (server, gamerules, updater) -> {
+            new Step(8, (server, gamerules, updater) -> {
                 updater.getModifier(FallDamageMultiplierModifier.class).update(0.25);
             }),
-            new StepPair(10, (server, gamerules, updater) -> {
+            new Step(10, (server, gamerules, updater) -> {
                 updater.getModifier(HealthModifier.class).update(-2);
             }),
-            new StepPair(12, (server, gamerules, updater) -> {
+            new Step(12, (server, gamerules, updater) -> {
                 updater.getModifier(StepHeightModifier.class).update(0.6);
             }),
-            new StepPair(13, (server, gamerules, updater) -> {
+            new Step(13, (server, gamerules, updater) -> {
                 gamerules.get(GameRules.TNT_EXPLOSION_DROP_DECAY).set(true, server);
             }),
-            new StepPair(15, (server, gamerules, updater) -> {
+            new Step(15, (server, gamerules, updater) -> {
                 updater.getModifier(SpawnReinforcementsModifier.class).update(0.25);
                 BETTER_ZOMBIES = true;
             }),
-            new StepPair(16, (server, gamerules, updater) -> {
+            new Step(16, (server, gamerules, updater) -> {
                 gamerules.get(GameRules.REDUCED_DEBUG_INFO).set(true, server);
             }),
-            new StepPair(18, (server, gamerules, updater) -> {
+            new Step(18, (server, gamerules, updater) -> {
                 updater.getModifier(FallDamageMultiplierModifier.class).update(0.5);
             }),
-            new StepPair(20, (server, gamerules, updater) -> {
+            new Step(20, (server, gamerules, updater) -> {
                 updater.getModifier(HealthModifier.class).update(-4);
             }),
-            new StepPair(21, (server, gamerules, updater) -> {
+            new Step(21, (server, gamerules, updater) -> {
                 updater.getModifier(FallDamageMultiplierModifier.class).update(0.5);
             }),
-            new StepPair(22, (server, gamerules, updater) -> {
+            new Step(22, (server, gamerules, updater) -> {
                 gamerules.get(GameRules.PLAYERS_SLEEPING_PERCENTAGE).set(100, server);
             }),
-            new StepPair(23, (server, gamerules, updater) -> {
+            new Step(23, (server, gamerules, updater) -> {
                 updater.getModifier(FollowRangeModifier.class).update(0.35);
             }),
-            new StepPair(24, (server, gamerules, updater) -> {
+            new Step(24, (server, gamerules, updater) -> {
                 gamerules.get(GameRules.WATER_SOURCE_CONVERSION).set(false, server);
             }),
-            new StepPair(25, (server, gamerules, updater) -> {
+            new Step(25, (server, gamerules, updater) -> {
                 updater.getModifier(SpawnReinforcementsModifier.class).update(0.5);
             }),
-            new StepPair(26, (server, gamerules, updater) -> {
+            new Step(26, (server, gamerules, updater) -> {
                 updater.getModifier(StepHeightModifier.class).update(1);
             }),
-            new StepPair(28, (server, gamerules, updater) -> {
+            new Step(28, (server, gamerules, updater) -> {
                 gamerules.get(GameRules.DO_LIMITED_CRAFTING).set(true, server);
                 SPAWN_PIGLIN_BRUTE = true;
             }),
-            new StepPair(30, (server, gamerules, updater) -> {
+            new Step(30, (server, gamerules, updater) -> {
                 gamerules.get(GameRules.UNIVERSAL_ANGER).set(true, server);
             }),
-            new StepPair(32, (server, gamerules, updater) -> {
+            new Step(32, (server, gamerules, updater) -> {
                 updater.getModifier(FallDamageMultiplierModifier.class).update(1);
             }),
-            new StepPair(33, (server, gamerules, updater) -> {
+            new Step(33, (server, gamerules, updater) -> {
                 updater.getModifier(SpawnReinforcementsModifier.class).update(0.75);
             }),
-            new StepPair(35, (server, gamerules, updater) -> {
+            new Step(35, (server, gamerules, updater) -> {
                 updater.getModifier(FollowRangeModifier.class).update(1);
                 BETTER_CREEPERS = true;
             }),
-            new StepPair(37, (server, gamerules, updater) -> {
+            new Step(37, (server, gamerules, updater) -> {
                 gamerules.get(GameRules.FORGIVE_DEAD_PLAYERS).set(false, server);
             }),
-            new StepPair(40, (server, gamerules, updater) -> {
+            new Step(40, (server, gamerules, updater) -> {
                 gamerules.get(GameRules.NATURAL_REGENERATION).set(false, server);
             }),
     };
