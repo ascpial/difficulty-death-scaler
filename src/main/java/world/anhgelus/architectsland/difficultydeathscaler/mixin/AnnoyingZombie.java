@@ -13,8 +13,8 @@ import world.anhgelus.architectsland.difficultydeathscaler.difficulty.global.Glo
 import world.anhgelus.architectsland.difficultydeathscaler.utils.GoalsUtils;
 
 @Mixin(ZombieEntity.class)
-public abstract class AnnoyingZombies extends HostileEntity {
-    protected AnnoyingZombies(EntityType<? extends HostileEntity> entityType, World world) {
+public abstract class AnnoyingZombie extends HostileEntity {
+    protected AnnoyingZombie(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
     }
 

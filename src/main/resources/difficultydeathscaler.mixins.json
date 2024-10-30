@@ -8,7 +8,7 @@
     "AnnoyingCreeper$IgniteGoal",
     "AnnoyingDrowned",
     "AnnoyingSkeleton",
-    "AnnoyingZombies"
+    "AnnoyingZombie"
   ],
   "injectors": {
     "defaultRequire": 1
