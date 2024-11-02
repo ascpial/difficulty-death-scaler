@@ -47,12 +47,12 @@ public class Bounty {
 
         sb.append(name);
         sb.append(" because he ");
-        if (playerDifficulty.getNumberOfDeath() == 0) {
+        if (playerDifficulty.getTotalOfDeath() == 0) {
             sb.append("never died!");
-        } else if (playerDifficulty.getNumberOfDeath() == 1) {
+        } else if (playerDifficulty.getTotalOfDeath() == 1) {
             sb.append("died only once!");
         } else {
-            sb.append("died only ").append(playerDifficulty.getNumberOfDeath()).append(" times!");
+            sb.append("died only ").append(playerDifficulty.getTotalOfDeath()).append(" times!");
         }
 
         sb.append("\n\n");
@@ -94,7 +94,7 @@ public class Bounty {
     public void onDeath() {
         if (!enabled) return;
         player = playerDifficulty.player;
-        if ((double) playerDifficulty.getNumberOfDeath() / globalDifficulty.getTotalOfDeath() > BOUNTY_DEATH_PERCENTAGE)
+        if ((double) playerDifficulty.getTotalOfDeath() / globalDifficulty.getTotalOfDeath() > BOUNTY_DEATH_PERCENTAGE)
             disable();
     }
 
@@ -122,7 +122,7 @@ public class Bounty {
 
     public static @Nullable Bounty newBounty(GlobalDifficultyManager globalDifficulty, PlayerDifficultyManager playerDifficulty) {
         if (globalDifficulty.getTotalOfDeath() >= BOUNTY_ENABLED_AFTER &&
-                (double) playerDifficulty.getNumberOfDeath() / globalDifficulty.getTotalOfDeath() <= BOUNTY_DEATH_PERCENTAGE
+                (double) playerDifficulty.getTotalOfDeath() / globalDifficulty.getTotalOfDeath() <= BOUNTY_DEATH_PERCENTAGE
         ) {
             return new Bounty(globalDifficulty, playerDifficulty);
         }
