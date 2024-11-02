@@ -21,7 +21,7 @@ public abstract class AnnoyingSkeleton extends HostileEntity {
 
     @Inject(at = @At("HEAD"), method = "initGoals")
     protected void newGoals(CallbackInfo ci) {
-        if (!GlobalDifficultyManager.betterSkeleton()) return;
+        if (!GlobalDifficultyManager.areSkeletonsBetter()) return;
         // flee Player
         goalSelector.add(3, new FleeEntityGoal<>(
                 (AbstractSkeletonEntity) (Object)this,
@@ -34,6 +34,6 @@ public abstract class AnnoyingSkeleton extends HostileEntity {
 
     @Inject(at = @At("RETURN"), method = "initGoals")
     protected void betterGoals(CallbackInfo ci) {
-        if (GlobalDifficultyManager.betterSkeleton()) GoalsUtils.commonBetterGoals(this, targetSelector);
+        if (GlobalDifficultyManager.areSkeletonsBetter()) GoalsUtils.commonBetterGoals(this, targetSelector);
     }
 }

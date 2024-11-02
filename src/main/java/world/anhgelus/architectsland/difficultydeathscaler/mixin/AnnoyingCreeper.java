@@ -26,14 +26,14 @@ public abstract class AnnoyingCreeper {
 
         @Inject(at = @At("RETURN"), method = "canStart", cancellable = true)
         public void canStart(CallbackInfoReturnable<Boolean> cir) {
-            if (!GlobalDifficultyManager.betterCreepers()) return;
+            if (!GlobalDifficultyManager.areCreepersBetter()) return;
             final var livingEntity = creeper.getTarget();
             cir.setReturnValue(creeper.getFuseSpeed() > 0 || livingEntity != null && creeper.squaredDistanceTo(livingEntity) < 6.0);
         }
 
         @Inject(at = @At("HEAD"), method = "tick", cancellable = true)
         public void tick(CallbackInfo ci) {
-            if (!GlobalDifficultyManager.betterCreepers()) return;
+            if (!GlobalDifficultyManager.areCreepersBetter()) return;
             if (this.target == null) {
                 this.creeper.setFuseSpeed(-1);
                 return;
@@ -59,7 +59,7 @@ public abstract class AnnoyingCreeper {
 
         @Inject(at = @At("RETURN"), method = "initGoals")
         protected void initGoals(CallbackInfo ci) {
-            if (!GlobalDifficultyManager.betterCreepers()) return;
+            if (!GlobalDifficultyManager.areCreepersBetter()) return;
             for (Goal g : targetSelector.getGoals()) {
                 if (g instanceof ActiveTargetGoal) {
                     targetSelector.remove(g);

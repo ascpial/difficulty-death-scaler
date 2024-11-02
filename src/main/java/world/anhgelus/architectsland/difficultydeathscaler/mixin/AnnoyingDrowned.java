@@ -19,7 +19,7 @@ public abstract class AnnoyingDrowned extends HostileEntity {
 
     @Inject(at = @At("HEAD"), method = "initCustomGoals")
     protected void newGoals(CallbackInfo ci) {
-        if (!GlobalDifficultyManager.betterZombies()) return;
+        if (!GlobalDifficultyManager.areZombiesBetter()) return;
         goalSelector.add(3, new ChaseBoatGoal(this));
     }
 }

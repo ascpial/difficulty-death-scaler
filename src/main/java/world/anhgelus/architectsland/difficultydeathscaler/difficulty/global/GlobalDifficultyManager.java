@@ -165,7 +165,7 @@ public class GlobalDifficultyManager extends DifficultyManager {
         setNumberOfDeath(state.deaths, true);
         totalOfDeath = state.totalOfDeath;
 
-        updateModifiersValue(modifiers(numberOfDeath));
+        updateModifiersValue(getModifiers(numberOfDeath));
     }
 
     @Override
@@ -241,7 +241,7 @@ public class GlobalDifficultyManager extends DifficultyManager {
         }
         sb.append("§r\n\n");
 
-        if (updateType == null && increaser.enabled()) updateType = UpdateType.AUTOMATIC_INCREASE;
+        if (updateType == null && increaser.isEnabled()) updateType = UpdateType.AUTOMATIC_INCREASE;
         sb.append(generateFooterUpdate(STEPS, "no one died", updateType));
 
         return sb.toString();
@@ -271,27 +271,27 @@ public class GlobalDifficultyManager extends DifficultyManager {
         state.deaths = numberOfDeath;
         state.timeBeforeReduce = delay();
         state.timeBeforeIncrease = increaser.delay();
-        state.increaseEnabled = increaser.enabled();
+        state.increaseEnabled = increaser.isEnabled();
         state.totalOfDeath = totalOfDeath;
     }
 
-    public int totalOfDeath() {
+    public int getTotalOfDeath() {
         return totalOfDeath;
     }
 
-    public static boolean betterSkeleton() {
+    public static boolean areSkeletonsBetter() {
         return BETTER_SKELETON;
     }
 
-    public static boolean betterZombies() {
+    public static boolean areZombiesBetter() {
         return BETTER_ZOMBIES;
     }
 
-    public static boolean betterCreepers() {
+    public static boolean areCreepersBetter() {
         return BETTER_CREEPERS;
     }
 
-    public static boolean spawnPiglinBrute() {
+    public static boolean canSpawnPiglinsBrute() {
         return SPAWN_PIGLIN_BRUTE;
     }
 }

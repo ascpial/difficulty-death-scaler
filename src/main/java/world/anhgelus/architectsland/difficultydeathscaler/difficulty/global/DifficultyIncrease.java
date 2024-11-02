@@ -39,7 +39,7 @@ public class DifficultyIncrease extends DifficultyTimer {
         timerStart = System.currentTimeMillis() / 1000;
     }
 
-    public boolean enabled() {
+    public boolean isEnabled() {
         return enabled;
     }
 }

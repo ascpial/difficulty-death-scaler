@@ -112,7 +112,7 @@ public class PlayerDifficultyManager extends DifficultyManager {
         }
         delayFirstTask(data.timeBeforeReduce);
         updateTimerTask();
-        updateModifiersValue(modifiers(numberOfDeath));
+        updateModifiersValue(getModifiers(numberOfDeath));
     }
 
 
@@ -262,9 +262,5 @@ public class PlayerDifficultyManager extends DifficultyManager {
             return true;
         }
         return false;
-    }
-
-    public int totalOfDeath() {
-        return numberOfDeath;
     }
 }

@@ -215,7 +215,7 @@ public abstract class DifficultyManager extends DifficultyTimer {
 
     public abstract void save();
 
-    protected List<Modifier<?>> modifiers(int level) {
+    protected List<Modifier<?>> getModifiers(int level) {
         final var updater = new Updater();
         for (final Step step : steps) {
             if (step.level() <= level) step.reached(server, server.getGameRules(), updater);

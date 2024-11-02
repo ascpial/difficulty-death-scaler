@@ -21,13 +21,13 @@ public abstract class AnnoyingZombie extends HostileEntity {
 
     @Inject(at = @At("HEAD"), method = "initGoals")
     protected void newGoals(CallbackInfo ci) {
-        if (!GlobalDifficultyManager.betterZombies()) return;
+        if (!GlobalDifficultyManager.areZombiesBetter()) return;
         goalSelector.add(3, new LongDoorInteractGoal(this, false));
     }
 
     @Inject(at = @At("RETURN"), method = "initGoals")
     protected void betterGoals(CallbackInfo ci) {
         if ((ZombieEntity)(Object) this instanceof ZombifiedPiglinEntity) return;
-        if (GlobalDifficultyManager.betterZombies()) GoalsUtils.commonBetterGoals(this, targetSelector);
+        if (GlobalDifficultyManager.areZombiesBetter()) GoalsUtils.commonBetterGoals(this, targetSelector);
     }
 }
