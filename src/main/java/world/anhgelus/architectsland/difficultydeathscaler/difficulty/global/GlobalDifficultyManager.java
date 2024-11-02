@@ -294,4 +294,8 @@ public class GlobalDifficultyManager extends DifficultyManager {
     public static boolean canSpawnPiglinsBrute() {
         return SPAWN_PIGLIN_BRUTE;
     }
+
+    public double getHealthModifier() {
+        return healthModifier;
+    }
 }

@@ -11,6 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import world.anhgelus.architectsland.difficultydeathscaler.DifficultyDeathScaler;
 import world.anhgelus.architectsland.difficultydeathscaler.difficulty.DifficultyManager;
 import world.anhgelus.architectsland.difficultydeathscaler.difficulty.StateSaver;
+import world.anhgelus.architectsland.difficultydeathscaler.difficulty.global.GlobalDifficultyManager;
 import world.anhgelus.architectsland.difficultydeathscaler.difficulty.modifier.BlockBreakSpeedModifier;
 import world.anhgelus.architectsland.difficultydeathscaler.difficulty.modifier.LuckModifier;
 import world.anhgelus.architectsland.difficultydeathscaler.difficulty.modifier.Modifier;
@@ -72,23 +73,27 @@ public class PlayerDifficultyManager extends DifficultyManager {
     protected double luckModifier = 0;
     protected double blockBreakSpeedModifier = 0;
 
+    private final GlobalDifficultyManager globalManager;
+
     private int deathDay;
     private final List<Long> deathDayStart = new ArrayList<>();
 
     private int totalOfDeath = 0;
 
-    public PlayerDifficultyManager(MinecraftServer server, ServerPlayerEntity player) {
+    public PlayerDifficultyManager(MinecraftServer server, GlobalDifficultyManager globalManager, ServerPlayerEntity player) {
         super(server, STEPS, SECONDS_BEFORE_DECREASED);
         this.player = player;
+        this.globalManager = globalManager;
 
         DifficultyDeathScaler.LOGGER.info("Loading player {} difficulty data", player.getUuid());
         loadData(StateSaver.getPlayerState(player));
     }
 
-    public PlayerDifficultyManager(MinecraftServer server, @NotNull UUID uuid, PlayerData data) {
+    public PlayerDifficultyManager(MinecraftServer server, GlobalDifficultyManager globalManager, @NotNull UUID uuid, PlayerData data) {
         super(server, STEPS, SECONDS_BEFORE_DECREASED);
 
         this.uuid = uuid;
+        this.globalManager = globalManager;
 
         DifficultyDeathScaler.LOGGER.info("Creating player difficulty manager with data");
         loadData(data);
@@ -156,7 +161,7 @@ public class PlayerDifficultyManager extends DifficultyManager {
 
     @Override
     protected @NotNull String generateDifficultyUpdate(UpdateType updateType, @Nullable Difficulty difficulty) {
-        final var heartAmount = (20 + healthModifier) / 2;
+        final var heartAmount = (20 + healthModifier + globalManager.getHealthModifier()) / 2;
 
         final var sb = new StringBuilder();
         sb.append(generateHeaderUpdate(updateType));

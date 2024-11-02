@@ -188,7 +188,7 @@ public class DifficultyDeathScaler implements ModInitializer {
             playerDifficulty.player = player;
             return playerDifficulty;
         }
-        final var playerDifficulty = new PlayerDifficultyManager(server, player);
+        final var playerDifficulty = new PlayerDifficultyManager(server, difficultyManager, player);
         playerDifficultyManagerMap.put(player.getUuid(), playerDifficulty);
         return playerDifficulty;
     }
@@ -196,7 +196,7 @@ public class DifficultyDeathScaler implements ModInitializer {
     private void loadAllPlayerManagers(MinecraftServer server) {
         final var state = StateSaver.getServerState(server);
         state.players.forEach((uuid, data) -> {
-            playerDifficultyManagerMap.computeIfAbsent(uuid, u -> new PlayerDifficultyManager(server, uuid, data));
+            playerDifficultyManagerMap.computeIfAbsent(uuid, u -> new PlayerDifficultyManager(server, difficultyManager, uuid, data));
         });
     }
 }
