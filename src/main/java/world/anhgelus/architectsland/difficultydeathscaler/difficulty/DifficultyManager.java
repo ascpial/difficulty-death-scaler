@@ -254,47 +254,24 @@ public abstract class DifficultyManager extends DifficultyTimer {
 
         if (updateType == UpdateType.DECREASE) {
             sb.append("You only need to survive for §6")
-                .append(printTime(secondsBeforeDecreased))
+                .append(formatSeconds(secondsBeforeDecreased))
                 .append("§r to make the difficulty decrease again.");
         } else if (updateType == UpdateType.AUTOMATIC_INCREASE) {
             sb.append("The difficulty is increasing automatically!");
         } else if (updateType != UpdateType.INCREASE) {
             sb.append("You only need to survive for §6")
-                .append(printTime(secondsBeforeDecreased - System.currentTimeMillis() / 1000 + timerStart))
+                .append(formatSeconds(secondsBeforeDecreased - System.currentTimeMillis() / 1000 + timerStart))
                 .append("§r to make the difficulty decrease.");
         } else if (numberOfDeath < steps[2].level()) {
             sb.append("You were on the lowest difficulty for §6")
-                .append(printTime(System.currentTimeMillis() / 1000 - timerStart))
+                .append(formatSeconds(System.currentTimeMillis() / 1000 - timerStart))
                 .append("§r, but you had to die and ruin everything, hadn't you?");
         } else {
             sb.append("If ").append(beginning).append(" for §6")
-                .append(printTime(secondsBeforeDecreased - System.currentTimeMillis() / 1000 + timerStart))
+                .append(formatSeconds(secondsBeforeDecreased - System.currentTimeMillis() / 1000 + timerStart))
                 .append("§r, then the difficulty would’ve decreased... But you chose your fate.");
         }
         sb.append("\n§8=============================================§r");
-        return sb.toString();
-    }
-
-    protected static String printTime(long time) {
-        long hours = 0;
-        if (time > 3600) {
-            hours = Math.floorDiv(time, 3600);
-        }
-        long minutes = 0;
-        if (hours != 0 || time > 60) {
-            minutes = Math.floorDiv(time - hours * 3600, 60);
-        }
-        long seconds = (long) Math.floor(time - hours * 3600 - minutes * 60);
-
-        StringBuilder sb = new StringBuilder();
-        if (hours != 0) {
-            sb.append(hours).append(" hours ");
-        }
-        if (minutes != 0 || hours != 0) {
-            sb.append(minutes).append(" minutes ");
-        }
-        sb.append(seconds).append(" seconds");
-
         return sb.toString();
     }
 

@@ -36,6 +36,29 @@ public class DifficultyTimer {
         timer.schedule(task, delay * 1000L, repeatEach * 1000L);
     }
 
+    protected static String formatSeconds(long time) {
+        long hours = 0;
+        if (time > 3600) {
+            hours = Math.floorDiv(time, 3600);
+        }
+        long minutes = 0;
+        if (hours != 0 || time > 60) {
+            minutes = Math.floorDiv(time - hours * 3600, 60);
+        }
+        long seconds = (long) Math.floor(time - hours * 3600 - minutes * 60);
+
+        StringBuilder sb = new StringBuilder();
+        if (hours != 0) {
+            sb.append(hours).append(" hours ");
+        }
+        if (minutes != 0 || hours != 0) {
+            sb.append(minutes).append(" minutes ");
+        }
+        sb.append(seconds).append(" seconds");
+
+        return sb.toString();
+    }
+
     public long delay() {
         return delay(timerStart);
     }
