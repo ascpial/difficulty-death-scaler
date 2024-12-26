@@ -43,6 +43,10 @@ public class GlobalDifficultyManager extends DifficultyManager {
                 gamerules.get(GameRules.DO_INSOMNIA).set(false, server);
                 gamerules.get(GameRules.FORGIVE_DEAD_PLAYERS).set(true, server);
                 gamerules.get(GameRules.UNIVERSAL_ANGER).set(false, server);
+                BETTER_CREEPERS = false;
+                BETTER_ZOMBIES = false;
+                BETTER_SKELETON = false;
+                SPAWN_PIGLIN_BRUTE = false;
                 // explosion decay
                 gamerules.get(GameRules.BLOCK_EXPLOSION_DROP_DECAY).set(false, server);
                 gamerules.get(GameRules.MOB_EXPLOSION_DROP_DECAY).set(false, server);
