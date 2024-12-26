@@ -3,6 +3,7 @@ package world.anhgelus.architectsland.difficultydeathscaler;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
@@ -56,15 +57,17 @@ public class DifficultyDeathScaler implements ModInitializer {
     public void onInitialize() {
         LOGGER.info("Difficulty Death Scaler started");
 
-        final LiteralArgumentBuilder<ServerCommandSource> globalCommand = literal("global");
-        globalCommand.then(literal("get").executes(context -> {
+        final Command<ServerCommandSource> globalGetExecute = context -> {
             final var source = context.getSource();
             final var server = source.getServer();
             source.sendFeedback(() -> {
                 return Text.literal(difficultyManager.getDifficultyUpdate(server.getOverworld().getDifficulty()));
             }, false);
             return Command.SINGLE_SUCCESS;
-        }));
+        };
+
+        final LiteralArgumentBuilder<ServerCommandSource> globalCommand = literal("global");
+        globalCommand.then(literal("get").executes(globalGetExecute));
         globalCommand.then(literal("set")
             .requires(source -> source.hasPermissionLevel(1))
             .then(argument("number of death", IntegerArgumentType.integer())
@@ -82,11 +85,10 @@ public class DifficultyDeathScaler implements ModInitializer {
             final var source = context.getSource();
             final var server = source.getServer();
             final var target = EntityArgumentType.getPlayer(context, "player");
-            source.sendFeedback(() -> {
-                return Text.literal(
-                        getPlayerDifficultyManager(server, target).getDifficultyUpdate(server.getOverworld().getDifficulty())
-                );
-            }, false);
+            source.sendFeedback(() -> Text.literal(
+                    getPlayerDifficultyManager(server, target)
+                            .getDifficultyUpdate(server.getOverworld().getDifficulty())
+            ), false);
             return Command.SINGLE_SUCCESS;
         })));
         playerCommand.then(argument("player", EntityArgumentType.player()).then(literal("set")
@@ -117,6 +119,21 @@ public class DifficultyDeathScaler implements ModInitializer {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             dispatcher.register(command);
             dispatcher.register(commandShort);
+            dispatcher.register(literal("ddsg").executes(globalGetExecute));
+            dispatcher.register(literal("ddsp").executes(context -> {
+                final var source = context.getSource();
+                final var server = source.getServer();
+                final var target = source.getPlayer();
+                if (target == null) {
+                    source.sendFeedback(() -> Text.literal("You are not a player"), false);
+                    return 2;
+                }
+                source.sendFeedback(() -> Text.literal(
+                        getPlayerDifficultyManager(server, target)
+                                .getDifficultyUpdate(server.getOverworld().getDifficulty())
+                ), false);
+                return Command.SINGLE_SUCCESS;
+            }));
         });
 
         // set up difficulty of deathSteps[0]
