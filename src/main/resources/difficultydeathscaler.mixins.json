@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "world.anhgelus.architectsland.difficultydeathscaler.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "AnnoyingCreeper$Creeper",
+    "AnnoyingCreeper$IgniteGoal",
+    "AnnoyingDrowned",
+    "AnnoyingMobEntity",
+    "AnnoyingSkeleton",
+    "AnnoyingZombie"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

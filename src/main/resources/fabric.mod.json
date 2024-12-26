@@ -18,6 +18,9 @@
       "world.anhgelus.architectsland.difficultydeathscaler.DifficultyDeathScaler"
     ]
   },
+  "mixins": [
+    "difficultydeathscaler.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric-api": "*",
