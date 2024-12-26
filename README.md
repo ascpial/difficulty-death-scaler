@@ -16,8 +16,8 @@ It has a lot of features including:
 
 ## Command
 
-The mod adds one command: `/difficultydeathscaler`
-- `/difficultydeathscaler global get` gives the current global difficulty
+The mod adds one command: `/difficultydeathscaler` (or `/dds`)
+- `/difficultydeathscaler global get` gives the current global difficulty (or `/ddsg`)
 - `/difficultydeathscaler global set [number of death]` sets the number of death in global difficulty (player must be OP)
 - `/difficultydeathscaler player [selector] get` gives the current player difficulty targeted by the selector
 - `/difficultydeathscaler player [selector] set [number of death]` sets the number of death in player difficulty targeted
