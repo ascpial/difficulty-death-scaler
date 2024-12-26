@@ -9,7 +9,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
 public class LuckModifier extends Modifier<ServerPlayerEntity> {
-    public static final RegistryEntry<EntityAttribute> ATTRIBUTE = EntityAttributes.GENERIC_LUCK;
+    public static final RegistryEntry<EntityAttribute> ATTRIBUTE = EntityAttributes.LUCK;
     public static final EntityAttributeModifier.Operation OPERATION = EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE;
     protected static Identifier ID = Identifier.of(PREFIX + "luck_modifier");
 

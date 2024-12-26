@@ -8,7 +8,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
 public class BlockBreakSpeedModifier extends Modifier<ServerPlayerEntity> {
-    public static final RegistryEntry<EntityAttribute> ATTRIBUTE = EntityAttributes.PLAYER_BLOCK_BREAK_SPEED;
+    public static final RegistryEntry<EntityAttribute> ATTRIBUTE = EntityAttributes.BLOCK_BREAK_SPEED;
     public static final EntityAttributeModifier.Operation OPERATION = EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE;
     protected static Identifier ID = Identifier.of(PREFIX + "block_break_speed_modifier");
 

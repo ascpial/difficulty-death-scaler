@@ -85,35 +85,35 @@ public class BossManager {
 
                 buffAttribute(
                         entity,
-                        EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE,
+                        EntityAttributes.KNOCKBACK_RESISTANCE,
                         "death_difficulty.elder_guardian.kb",
                         0.8f,
                         EntityAttributeModifier.Operation.ADD_VALUE
                 );
                 buffAttribute(
                         entity,
-                        EntityAttributes.GENERIC_MAX_HEALTH,
+                        EntityAttributes.MAX_HEALTH,
                         "death_difficulty.elder_guardian.health",
                         2,
                         EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE
                 );
                 buffAttribute(
                         entity,
-                        EntityAttributes.GENERIC_ATTACK_DAMAGE,
+                        EntityAttributes.ATTACK_DAMAGE,
                         "death_difficulty.elder_guardian.damage",
                         6,
                         EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE
                 );
                 buffAttribute(
                         entity,
-                        EntityAttributes.GENERIC_SCALE,
+                        EntityAttributes.SCALE,
                         "death_difficulty.elder_guardian.scale",
                         -0.33f,
                         EntityAttributeModifier.Operation.ADD_VALUE
                 );
                 buffAttribute(
                         entity,
-                        EntityAttributes.GENERIC_MOVEMENT_SPEED,
+                        EntityAttributes.MOVEMENT_SPEED,
                         "death_difficulty.elder_guardian.speed",
                         2f,
                         EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE
@@ -139,14 +139,14 @@ public class BossManager {
 
                 buffAttribute(
                         entity,
-                        EntityAttributes.GENERIC_MOVEMENT_SPEED,
+                        EntityAttributes.MOVEMENT_SPEED,
                         "death_difficulty.warden.speed",
                         1.5f,
                         EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE
                 );
                 buffAttribute(
                         entity,
-                        EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE,
+                        EntityAttributes.KNOCKBACK_RESISTANCE,
                         "death_difficulty.warden.kb",
                         0.8f,
                         EntityAttributeModifier.Operation.ADD_VALUE
@@ -182,8 +182,8 @@ public class BossManager {
     private static void buffAttribute(LivingEntity entity, RegistryEntry<EntityAttribute> attribute, String id, float value, EntityAttributeModifier.Operation operation) {
         final var attr = entity.getAttributeInstance(attribute);
         if (attr != null) {
-            final var wardenKbModifier = new EntityAttributeModifier(Identifier.of(id), value, operation);
-            attr.addTemporaryModifier(wardenKbModifier);
+            final var modifier = new EntityAttributeModifier(Identifier.of(id), value, operation);
+            attr.addTemporaryModifier(modifier);
         }
     }
 }

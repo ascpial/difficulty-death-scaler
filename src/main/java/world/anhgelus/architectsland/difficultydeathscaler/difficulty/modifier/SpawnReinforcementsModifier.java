@@ -8,7 +8,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 
 public class SpawnReinforcementsModifier extends Modifier<HostileEntity> {
-    public static final RegistryEntry<EntityAttribute> ATTRIBUTE = EntityAttributes.ZOMBIE_SPAWN_REINFORCEMENTS;
+    public static final RegistryEntry<EntityAttribute> ATTRIBUTE = EntityAttributes.SPAWN_REINFORCEMENTS;
     public static final EntityAttributeModifier.Operation OPERATION = EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE;
     protected static Identifier ID = Identifier.of(PREFIX + "spawn_reinforcements_modifier");
 

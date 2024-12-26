@@ -8,7 +8,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
 public class FallDamageMultiplierModifier extends Modifier<ServerPlayerEntity> {
-    public static final RegistryEntry<EntityAttribute> ATTRIBUTE = EntityAttributes.GENERIC_FALL_DAMAGE_MULTIPLIER;
+    public static final RegistryEntry<EntityAttribute> ATTRIBUTE = EntityAttributes.FALL_DAMAGE_MULTIPLIER;
     public static final EntityAttributeModifier.Operation OPERATION = EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE;
     protected static Identifier ID = Identifier.of(PREFIX + "fall_damage_multiplier_modifier");
 

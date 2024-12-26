@@ -8,7 +8,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 
 public class StepHeightModifier extends Modifier<HostileEntity> {
-    public static final RegistryEntry<EntityAttribute> ATTRIBUTE = EntityAttributes.GENERIC_STEP_HEIGHT;
+    public static final RegistryEntry<EntityAttribute> ATTRIBUTE = EntityAttributes.STEP_HEIGHT;
     public static final EntityAttributeModifier.Operation OPERATION = EntityAttributeModifier.Operation.ADD_VALUE;
     protected static Identifier ID = Identifier.of(PREFIX + "step_height_modifier");
 
