@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import world.anhgelus.architectsland.difficultydeathscaler.difficulty.global.GlobalDifficultyManager;
+import world.anhgelus.architectsland.difficultydeathscaler.utils.GoalsUtils;
 
 @Mixin(DrownedEntity.class)
 public abstract class AnnoyingDrowned extends HostileEntity {
@@ -21,5 +22,6 @@ public abstract class AnnoyingDrowned extends HostileEntity {
     protected void newGoals(CallbackInfo ci) {
         if (!GlobalDifficultyManager.areZombiesBetter()) return;
         goalSelector.add(3, new ChaseBoatGoal(this));
+        GoalsUtils.commonBetterGoals(this, targetSelector);
     }
 }
