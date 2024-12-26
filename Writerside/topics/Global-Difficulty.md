@@ -85,7 +85,7 @@ It mainly modifies vanilla gamerules.
         <p>Increase follow range by 100%.</p>
         <p>Creepers are buffed... (Good luck)</p>
     </def>
-    <def title="37, 38 and 38 deaths" default-state="collapsed">
+    <def title="37, 38 and 39 deaths" default-state="collapsed">
         Never forgive dead players!
     </def>
     <def title="40 deaths" default-state="collapsed">

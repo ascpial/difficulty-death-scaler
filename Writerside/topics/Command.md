@@ -14,7 +14,7 @@ You must be op to execute this command.
 ## Player difficulty
 
 You can get or set the global difficulty with `/difficultydeathscaler player [selector]`.
-Selector is obviously a selector targeting the player.
+Selector is obviously a selector targeting one player.
 
 To get the player difficulty, use `/difficultydeathscaler player [selector] get`.
 
