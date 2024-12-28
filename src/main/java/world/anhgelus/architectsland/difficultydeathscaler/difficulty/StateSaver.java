@@ -31,6 +31,7 @@ public class StateSaver extends PersistentState {
             playerNbt.putInt("deathDay", playerData.deathDay);
             playerNbt.putLongArray("deathDayDelay", playerData.deathDayDelay);
             playerNbt.putInt("totalOfDeath", playerData.totalOfDeath);
+            playerNbt.putLong("bannedSince", playerData.bannedSince);
 
             playersNbt.put(uuid.toString(), playerNbt);
         });
@@ -57,6 +58,7 @@ public class StateSaver extends PersistentState {
             playerData.deathDay = compound.getInt("deathDay");
             playerData.deathDayDelay = compound.getLongArray("deathDayDelay");
             playerData.totalOfDeath = compound.getInt("totalOfDeath");
+            if (compound.contains("bannedSince")) playerData.bannedSince = compound.getLong("bannedSince");
 
             state.players.put(UUID.fromString(key), playerData);
         });

@@ -139,22 +139,19 @@ public class PlayerDifficultyManager extends DifficultyManager {
     protected void onDeath(UpdateType updateType, Updater updater) {
         if (updateType == UpdateType.SET) return;
         deathDay++;
-        final var d = delay(System.currentTimeMillis() / 1000);
-        deathDayStart.add(d);
+        final var now = System.currentTimeMillis() / 1000;
+        deathDayStart.add(delay(now));
 
         if (player == null) throw new IllegalStateException("Player is null");
         if (player.getWorld().isClient()) return;
         timer.schedule(deathDayTask(), 24*60*60*1000L);
         if (!diedTooMuch()) return;
-        // reset everything
-        deathDay = 0;
-        deathDayStart.clear();
-        timer.cancel();
-        timer = new Timer();
         // temp ban
         tempBan = true;
-        bannedSince = d;
+        bannedSince = now;
         kickIfDiedTooMuch();
+        // resetting death day
+        resetDeathDay();
     }
 
     @Override
@@ -258,6 +255,13 @@ public class PlayerDifficultyManager extends DifficultyManager {
         };
     }
 
+    private void resetDeathDay() {
+        deathDay = 0;
+        deathDayStart.clear();
+        timer.cancel();
+        timer = new Timer();
+    }
+
     public boolean diedTooMuch() {
         final var rules = server.getGameRules();
         if (!rules.get(DifficultyDeathScaler.ENABLE_TEMP_BAN).get()) return false;
@@ -281,7 +285,11 @@ public class PlayerDifficultyManager extends DifficultyManager {
      */
     public boolean kickIfDiedTooMuch(ServerPlayNetworkHandler handler) {
         if (diedTooMuch()) {
-            DifficultyDeathScaler.LOGGER.info("Kick");
+            if (!tempBan) {
+                DifficultyDeathScaler.LOGGER.warn("Not banned because player was not temp banned. Death day were reset. Caused by an update?");
+                resetDeathDay();
+                return false;
+            }
             handler.disconnect(Text.of("You died too much during 24h...\nYou can log back in 12h."));
             return true;
         } else if (tempBan) {
