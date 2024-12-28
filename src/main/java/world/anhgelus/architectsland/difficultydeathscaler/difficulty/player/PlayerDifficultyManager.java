@@ -76,6 +76,8 @@ public class PlayerDifficultyManager extends DifficultyManager {
     private final GlobalDifficultyManager globalManager;
 
     private int deathDay;
+    private boolean tempBan;
+    private long bannedSince = -1;
     private final List<Long> deathDayStart = new ArrayList<>();
 
     private int totalOfDeath = 0;
@@ -103,6 +105,8 @@ public class PlayerDifficultyManager extends DifficultyManager {
         numberOfDeath = data.deaths;
         deathDay = data.deathDay;
         totalOfDeath = data.totalOfDeath;
+        bannedSince = data.bannedSince;
+        tempBan = bannedSince != -1;
         for (final var delay : data.deathDayDelay) {
             deathDayStart.add(delay);
         }
@@ -135,11 +139,21 @@ public class PlayerDifficultyManager extends DifficultyManager {
     protected void onDeath(UpdateType updateType, Updater updater) {
         if (updateType == UpdateType.SET) return;
         deathDay++;
-        deathDayStart.add(delay(System.currentTimeMillis() / 1000));
+        final var d = delay(System.currentTimeMillis() / 1000);
+        deathDayStart.add(d);
 
         if (player == null) throw new IllegalStateException("Player is null");
         if (player.getWorld().isClient()) return;
         timer.schedule(deathDayTask(), 24*60*60*1000L);
+        if (!diedTooMuch()) return;
+        // reset everything
+        deathDay = 0;
+        deathDayStart.clear();
+        timer.cancel();
+        timer = new Timer();
+        // temp ban
+        tempBan = true;
+        bannedSince = d;
         kickIfDiedTooMuch();
     }
 
@@ -218,6 +232,7 @@ public class PlayerDifficultyManager extends DifficultyManager {
         state.timeBeforeReduce = delay();
         state.deathDay = deathDay;
         state.totalOfDeath = totalOfDeath;
+        state.bannedSince = bannedSince;
         var starts = new long[deathDayStart.size()];
         for (int i = 0; i < deathDayStart.size(); i++) {
             starts[i] = deathDayStart.get(i);
@@ -243,6 +258,13 @@ public class PlayerDifficultyManager extends DifficultyManager {
         };
     }
 
+    public boolean diedTooMuch() {
+        final var rules = server.getGameRules();
+        if (!rules.get(DifficultyDeathScaler.ENABLE_TEMP_BAN).get()) return false;
+        return deathDay >= rules.get(DifficultyDeathScaler.DEATH_BEFORE_TEMP_BAN).get() ||
+                (tempBan && System.currentTimeMillis() / 1000 - bannedSince < 12*60*60);
+    }
+
     /**
      * Kick the player if he died too much
      * @return true if the player was kicked
@@ -258,13 +280,13 @@ public class PlayerDifficultyManager extends DifficultyManager {
      * @return true if the player was kicked
      */
     public boolean kickIfDiedTooMuch(ServerPlayNetworkHandler handler) {
-        final var rules = server.getGameRules();
-        if (rules.get(DifficultyDeathScaler.ENABLE_TEMP_BAN).get() &&
-                deathDay >= rules.get(DifficultyDeathScaler.DEATH_BEFORE_TEMP_BAN).get()
-        ) {
+        if (diedTooMuch()) {
             DifficultyDeathScaler.LOGGER.info("Kick");
-            handler.disconnect(Text.of("You died too much during 24h..."));
+            handler.disconnect(Text.of("You died too much during 24h...\nYou can log back in 12h."));
             return true;
+        } else if (tempBan) {
+            tempBan = false;
+            bannedSince = -1;
         }
         return false;
     }
