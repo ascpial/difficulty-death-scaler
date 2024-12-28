@@ -108,13 +108,22 @@ public class DifficultyDeathScaler implements ModInitializer {
             )
         ));
 
+        final LiteralArgumentBuilder<ServerCommandSource> helpCommand = literal("help").executes(context -> {
+            context.getSource().sendFeedback(() ->
+                    Text.literal("The wiki is available at https://architects-land.github.io/difficulty-death-scaler/"),
+                    true);
+            return Command.SINGLE_SUCCESS;
+        });
+
         final LiteralArgumentBuilder<ServerCommandSource> command = literal("difficultydeathscaler");
         command.then(globalCommand);
         command.then(playerCommand);
+        command.then(helpCommand);
 
         final LiteralArgumentBuilder<ServerCommandSource> commandShort = literal("dds");
         commandShort.then(globalCommand);
         commandShort.then(playerCommand);
+        commandShort.then(helpCommand);
 
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             dispatcher.register(command);
