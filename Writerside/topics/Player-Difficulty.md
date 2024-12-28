@@ -3,7 +3,7 @@
 The player difficulty affects only the player linked.
 It mainly modifies player's attributes.
 
-If you die more 5 times or more in less than 24 hours, you are temp ban for 24 hours.
+If you die more 5 times or more in less than 24 hours, you are temp ban for 12 hours.
 This feature prevents a player to increase the difficulty too much.
 
 You can modify the temp ban with these gamerules:
