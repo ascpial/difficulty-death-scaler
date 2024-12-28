@@ -36,7 +36,7 @@ You can modify the temp ban with these gamerules:
         <p>Decrease block break speed by 10%</p>
         <p>Decrease luck speed by 20%</p>
     </def>
-    <def title="10 and more deaths" default-state="collapsed">
+    <def title="10 deaths" default-state="collapsed">
         Remove another heart (five hearts removed).
     </def>
 </deflist>
