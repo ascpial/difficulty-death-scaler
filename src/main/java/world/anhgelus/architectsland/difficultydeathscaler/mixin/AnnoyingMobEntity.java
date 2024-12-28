@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import world.anhgelus.architectsland.difficultydeathscaler.DifficultyDeathScaler;
 import world.anhgelus.architectsland.difficultydeathscaler.difficulty.global.GlobalDifficultyManager;
 
 @Mixin(MobEntity.class)
@@ -24,10 +23,8 @@ public abstract class AnnoyingMobEntity extends LivingEntity {
     public void newSafeFallDistance(CallbackInfoReturnable<Integer> cir) {
         final var t = (MobEntity) (Object) this;
         if (t instanceof SkeletonEntity && GlobalDifficultyManager.areSkeletonsBetter()) {
-            DifficultyDeathScaler.LOGGER.info("called skeletons, {}", GlobalDifficultyManager.areSkeletonsBetter());
             cir.setReturnValue(safeFallDistance(t.getTarget()));
         } else if (t instanceof ZombieEntity && GlobalDifficultyManager.areZombiesBetter()) {
-            DifficultyDeathScaler.LOGGER.info("called zombies, {}", GlobalDifficultyManager.areZombiesBetter());
             cir.setReturnValue(safeFallDistance(t.getTarget()));
         }
     }
