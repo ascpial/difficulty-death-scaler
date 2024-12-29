@@ -142,7 +142,10 @@ public class PlayerDifficultyManager extends DifficultyManager {
         final var now = System.currentTimeMillis() / 1000;
         deathDayStart.add(delay(now));
 
-        if (player == null) throw new IllegalStateException("Player is null");
+        if (player == null) {
+            DifficultyDeathScaler.LOGGER.warn("Updating death of null player. UpdateType {}", updateType);
+            throw new IllegalStateException("Player is null");
+        }
         if (player.getWorld().isClient()) return;
         timer.schedule(deathDayTask(), 24*60*60*1000L);
         if (!diedTooMuch()) return;
