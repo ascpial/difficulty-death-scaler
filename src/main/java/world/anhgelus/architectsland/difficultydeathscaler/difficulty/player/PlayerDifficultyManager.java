@@ -266,7 +266,8 @@ public class PlayerDifficultyManager extends DifficultyManager {
         final var rules = server.getGameRules();
         if (!rules.get(DifficultyDeathScaler.ENABLE_TEMP_BAN).get()) return false;
         return deathDay >= rules.get(DifficultyDeathScaler.DEATH_BEFORE_TEMP_BAN).get() ||
-                (tempBan && System.currentTimeMillis() / 1000 - bannedSince < 12*60*60);
+                (tempBan && System.currentTimeMillis() / 1000 - bannedSince
+                        < rules.get(DifficultyDeathScaler.TEMP_BAN_DURATION).get()*60*60L);
     }
 
     /**
