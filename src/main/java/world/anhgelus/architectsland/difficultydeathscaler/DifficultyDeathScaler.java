@@ -18,7 +18,9 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.ClickEvent;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.world.GameRules;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -115,9 +117,16 @@ public class DifficultyDeathScaler implements ModInitializer {
         ));
 
         final LiteralArgumentBuilder<ServerCommandSource> helpCommand = literal("help").executes(context -> {
+            final var url = "https://architects-land.github.io/difficulty-death-scaler/";
+            final var link = Text.literal(url);
+            link.fillStyle(
+                link.getStyle()
+                    .withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, url))
+                    .withFormatting(Formatting.UNDERLINE)
+            );
             context.getSource().sendFeedback(() ->
-                    Text.literal("The wiki is available at https://architects-land.github.io/difficulty-death-scaler/"),
-                    true);
+                    Text.literal("The wiki is available at ").append(link),
+                    false);
             return Command.SINGLE_SUCCESS;
         });
 
