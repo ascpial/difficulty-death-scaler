@@ -149,7 +149,11 @@ public abstract class DifficultyManager extends DifficultyTimer {
             @Override
             public void run() {
                 decreaseDeath();
-                if (numberOfDeath == 0) reducerTask.cancel();
+                timerStart = System.currentTimeMillis() / 1000;
+                if (numberOfDeath == 0) {
+                    reducerTask.cancel();
+                    timerStart = -1;
+                }
             }
         };
         timerStart = System.currentTimeMillis() / 1000;
