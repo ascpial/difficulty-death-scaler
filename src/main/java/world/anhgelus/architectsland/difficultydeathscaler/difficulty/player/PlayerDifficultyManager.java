@@ -127,9 +127,10 @@ public class PlayerDifficultyManager extends DifficultyManager {
 
     @Override
     protected void onUpdate(UpdateType updateType, Updater updater) {
+        if (player == null) return;
+
         updateModifiersValue(updater);
 
-        if (player == null) return;
         player.sendMessage(Text.of(generateDifficultyUpdate(updateType, updater.getDifficulty())), false);
 
         playSoundUpdate(updateType, player);
