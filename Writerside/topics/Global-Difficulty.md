@@ -89,6 +89,6 @@ It mainly modifies vanilla gamerules.
         Never forgive dead players!
     </def>
     <def title="40 deaths" default-state="collapsed">
-        Disable natural generation...
+        Disable natural regeneration...
     </def>
 </deflist>
